@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Speed Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+</head>
+<body>
+  <div class="container">
+    <!-- Login Screen -->
+    <!-- Update the login-screen div in index.html -->
+<div id="login-screen" class="card glass-effect">
+  <h1 class="gradient-text">Typing Speed Test</h1>
+  
+  <!-- Login Form -->
+  <div id="login-form" class="form-group">
+    <label for="login-username">Username:</label>
+    <input type="text" id="login-username" placeholder="Your username" minlength="3" maxlength="15" class="glass-input">
+    
+    <label for="login-password">Password:</label>
+    <input type="password" id="login-password" placeholder="Your password" minlength="6" class="glass-input">
+    
+    <p id="login-error" class="error-message hidden">Invalid username or password</p>
+    <button id="login-btn" class="gradient-btn">Login</button>
+    <p class="toggle-form">Don't have an account? <a href="#" id="show-register">Register</a></p>
+  </div>
+  
+  <!-- Registration Form -->
+  <div id="register-form" class="form-group hidden">
+    <label for="register-username">Username:</label>
+    <input type="text" id="register-username" placeholder="Choose a username" minlength="3" maxlength="15" class="glass-input">
+    
+    <label for="register-password">Password (min 6 characters):</label>
+    <input type="password" id="register-password" placeholder="Choose a password" minlength="6" class="glass-input">
+    
+    <label for="register-confirm">Confirm Password:</label>
+    <input type="password" id="register-confirm" placeholder="Confirm your password" minlength="6" class="glass-input">
+    
+    <p id="register-error" class="error-message hidden">Passwords don't match or username is taken</p>
+    <button id="register-btn" class="gradient-btn">Register</button>
+    <p class="toggle-form">Already have an account? <a href="#" id="show-login">Login</a></p>
+  </div>
+</div>
+
+    <!-- Main Screen -->
+    <div id="main-screen" class="hidden">
+      <div class="header glass-effect">
+        <h1>Welcome, <span id="user-welcome" class="gradient-text"></span>!</h1>
+        <div class="streak-counter">
+          Current Streak: <span id="streak-count">0</span> 🔥
+        </div>
+        <button id="logout-btn">Logout</button>
+      </div>
+      
+      <div class="test-container card glass-effect">
+        <div class="difficulty-selector">
+          <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+          <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+          <button class="difficulty-btn active" data-difficulty="hard">Hard</button>
+        </div>
+        <button id="start-test" class="gradient-btn pulse">Start Test</button>
+        <div id="test-area" class="hidden">
+          <div id="timer" class="gradient-text">Time: 0s</div>
+          <div id="text-display" class="typing-text glass-effect"></div>
+          <div class="text-input-wrapper">
+            <input id="text-input" type="text" placeholder="Start typing when you're ready..." disabled>
+          </div>
+        </div>
+        
+        <div id="results" class="hidden">
+          <h2 class="gradient-text">Your Results</h2>
+          <div class="results-container">
+            <div class="result-item glass-effect">
+              <h3>WPM</h3>
+              <p id="wpm-result" class="gradient-text">0</p>
+            </div>
+            <div class="result-item glass-effect">
+              <h3>Accuracy</h3>
+              <p id="accuracy-result" class="gradient-text">0%</p>
+            </div>
+            <div class="result-item glass-effect">
+              <h3>Mistakes</h3>
+              <p id="errors-result" class="gradient-text">0</p>
+            </div>
+            <div class="result-item glass-effect">
+              <h3>Time</h3>
+              <p id="time-result" class="gradient-text">0s</p>
+            </div>
+            <div class="result-item glass-effect">
+              <h3>Difficulty</h3>
+              <p id="difficulty-result" class="gradient-text">Medium</p>
+            </div>
+          </div>
+          <button id="retry-btn" class="gradient-btn">Try Again</button>
+        </div>
+      </div>
+      
+      <!-- Leaderboard -->
+      <div class="leaderboard card glass-effect">
+        <h2 class="gradient-text">Top 10 Results</h2>
+        <table id="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Username</th>
+              <th>WPM</th>
+              <th>Accuracy</th>
+              <th>Difficulty</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+          </tbody>
+        </table>
+        
+        <!-- User Average Stats -->
+        <div id="user-stats">
+          <h3 class="gradient-text">Your Average Performance</h3>
+          <div class="user-avg-stats">
+            <div class="stat-item glass-effect">
+              <span>Average WPM:</span>
+              <span id="avg-wpm" class="gradient-text">0</span>
+            </div>
+            <div class="stat-item glass-effect">
+              <span>Average Accuracy:</span>
+              <span id="avg-accuracy" class="gradient-text">0%</span>
+            </div>
+            <div class="stat-item glass-effect">
+              <span>Total Tests:</span>
+              <span id="total-tests" class="gradient-text">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="custom-modal" class="modal hidden">
+    <div class="modal-content glass-effect">
+      <h3 id="modal-title" class="gradient-text">Confirmation</h3>
+      <p id="modal-message">Are you sure you want to reset all your results?</p>
+      <div class="modal-buttons">
+        <button id="modal-confirm" class="gradient-btn danger">Yes</button>
+        <button id="modal-cancel" class="gradient-btn">No</button>
+      </div>
+    </div>
+  </div>
+  <div class="particles"></div>
+  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="test-logic.js"></script>
+  <script src="stats.js"></script>
+  <script src="ui.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
